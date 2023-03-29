@@ -1,0 +1,70 @@
+<template>
+	<div class="mainOuterDiv">
+		<lightning-spinner alternative-text="Loading" size="large" if:true={csLoading}></lightning-spinner>
+		<p class="headerTxt">AskMe Buddy</p>
+		<template if:false={isApiKey}>
+			<div class="slds-grid slds-grid_vertical-align-center slds-grid_align-center slds-m-top_xx-large">
+				<div class="slds-col">
+					<lightning-input data-id="api-field" type="text" variant="standard" name="name"
+						label="Enter Api Key" placeholder="Paste key here.."></lightning-input>
+				</div>
+				<div class="parent-save slds-col slds-align-bottom slds-m-left_large">
+					<lightning-button variant="brand" label="Let's Go" title="save key" onclick={saveApiKey}>
+					</lightning-button>
+				</div>
+			</div>
+		</template>
+		<template if:true={isApiKey}>
+			<section role="log" class="slds-chat">
+				<ul class="slds-chat-list">
+					<template for:each={chatData} for:item="cd">
+						<li if:true={cd.isAssistant} key={cd.id} class="slds-chat-listitem slds-chat-listitem_inbound">
+							<div class="slds-chat-message">
+								<span aria-hidden="true" class="slds-avatar slds-avatar_circle slds-chat-avatar">
+                            <abbr class="slds-avatar__initials slds-avatar__initials_inverse" title="AskMe Buddy">AB</abbr>
+                        </span>
+								<div class="slds-chat-message__body">
+									<div class="slds-chat-message__text slds-chat-message__text_inbound">
+										<lightning-formatted-rich-text value={cd.content}>
+										</lightning-formatted-rich-text>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li if:false={cd.isAssistant} key={cd.id}
+							class="slds-chat-listitem slds-chat-listitem_outbound">
+							<div class="slds-chat-message">
+								<div class="slds-chat-message__body">
+									<div class="slds-chat-message__text slds-chat-message__text_outbound">
+										<span>{cd.content}</span>
+									</div>
+								</div>
+								<span aria-hidden="true" class="slds-avatar slds-avatar_circle slds-chat-avatar">
+                            <abbr class="slds-avatar__initials slds-avatar__initials_inverse" title={currentUserName}>{currentUserAlias}</abbr>
+                        </span>
+							</div>
+						</li>
+					</template>
+				</ul>
+			</section>
+			<div class="alignFooterBottom">
+				<div class="mainFooter slds-grid slds-gutters">
+					<div class="userInput slds-col slds-size_11-of-12">
+						<lightning-input type="text" variant="standard" data-id="userinputText"
+							placeholder="Enter your query here..." disabled={isLoading} onkeyup={searchQuery}>
+						</lightning-input>
+					</div>
+					<div class="querySubmit slds-col slds-size_1-of-12 slds-align-bottom">
+						<div if:false={isLoading}>
+							<lightning-button variant="brand" label="Ask" title="Submit to ask" onclick={askFromBuddy}>
+							</lightning-button>
+						</div>
+						<div if:true={isLoading} class="slds-is-relative slds-spinner_brand loadingSpinner">
+							<lightning-spinner alternative-text="Loading"></lightning-spinner>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+	</div>
+</template>

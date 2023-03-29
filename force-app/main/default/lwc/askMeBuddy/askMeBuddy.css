@@ -1,0 +1,37 @@
+.mainOuterDiv{
+	background:white;
+	border:1px solid black;
+	padding: 0.5em 0.5em;
+	height: 100%;
+	border-radius: 1rem;
+    position: relative;
+}
+.headerTxt
+{
+    text-align: center;
+    font-family: cursive;
+    width: auto;
+    font-weight: bolder;
+    font-size: large;
+}
+.alignFooterBottom
+{
+    bottom: 0;
+    position: absolute;
+    width: -webkit-fill-available;
+    padding-bottom: 0.5rem;
+}
+.querySubmit
+{
+    padding-left: 0;
+}
+.slds-chat
+{
+    height: 90%;
+    overflow-y: auto;
+    padding-bottom: 2em;
+}
+.loadingSpinner
+{
+    padding-bottom: 3em;
+}
